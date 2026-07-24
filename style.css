@@ -934,21 +934,80 @@ video {
   }
 }
 
+/* Mobile Navigation Fix */
 @media (max-width: 720px) {
   .nav-links {
     position: fixed;
-    top: 60px;
+    top: 60px; /* Adjust to match your header height */
     left: 0;
     right: 0;
-    bottom: 0;
-    /* Match this with your main header background or theme variable */
-    background: #14181F; 
+    height: calc(100vh - 60px);
+    background: var(--paper); /* Or your dark navbar background color */
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    padding: 10px 32px 32px;
-    display: none;
+    padding: 20px 32px;
     border-bottom: 1px solid var(--line);
-    z-index: 100;
+    z-index: 99;
+    
+    /* Hide menu completely when not open */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  }
+
+  /* Revealed state when burger menu is clicked */
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+    color: var(--ink); /* Change to #ffffff if using a dark nav background */
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
+/* Hero Cards / Stack Layout Fix */
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .stack {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    position: relative;
+  }
+
+  /* Fully reset individual absolute coordinates and rotations on mobile */
+  .proof-card,
+  .card-1,
+  .card-2,
+  .card-3 {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    z-index: 1 !important;
   }
 }
